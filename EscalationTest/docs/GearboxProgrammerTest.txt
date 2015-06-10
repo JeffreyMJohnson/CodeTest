@@ -1,0 +1,121 @@
+Gearbox Programmer Exam.
+
+
+Instructions:
+
+Submissions are to be in plain text format. ie, no Word documents.
+
+
+
+
+1. Rewrite the following function so that the following conditions are satisfied:
+A) the multiplication operator ('*') is not used.
+B) the division operator ('/') is not used.
+C) the function does not make use of loops.
+D) And no sneaky using assembly either!
+
+int MultiplyBy123(int value)
+{
+int rslt;
+
+rslt = value;
+
+return rslt;
+}
+
+
+
+2. Write a function which takes an array of integers, and places all occurrences of
+the value 0 (zero) to the back of the list. Non-zero values are to appear in the
+same relative order.
+
+example input:
+2 0 2 3 4 64 98 0 2 0
+example output:
+2 2 3 4 64 98 2 0 0 0
+
+
+Give one solution that emphasizes clarity.
+
+Give another solution that emphasizes speed.
+
+Solution should be in the form of C/C++ compilable source which demonstrates your 
+solutions, using several test cases. You may only use standard C runtime library 
+functions.  Use of STL, or other forms of templated containers, is not allowed.
+We expect to be able to compile this submission and run as is. Please let us know 
+the name and version of the compiler you use (we prefer solutions which compile 
+in Visual Studio 2005, 2008, or 2010.)
+
+
+
+3. Instruction set reference:
+
+instruction:
+mov mem[y], reg[x]
+
+performs:
+mem[y] <- reg[x]
+copies value in register[x] to memory location[y]
+NOTE: can only copy from register to memory
+
+example:
+mov mem1, reg1
+
+
+
+instruction:
+sub reg[x], mem[y]
+
+performs:
+reg[x] <- reg[x] - mem[y]
+subtracts the number in memory location[y] from the number in register[x]
+and stores the result in register[x]
+
+example:
+sub reg1, mem1
+
+
+registers:
+reg1
+reg2
+
+
+memory locations:
+mem1
+mem2
+
+
+Given the above reference, use the mov and sub instructions to move a
+value from mem1 to mem2.
+
+
+
+
+4. Essay: Describe five important qualities of software.
+
+
+
+5. Essay: Describe what you feel is the most important aspect of the software development process.
+
+
+
+6. Is C++ slower than C? Why or why not?
+
+
+
+7. Do you have any hobby software projects? If so, describe.
+
+
+
+8. What achievement in software development are you most proud of?
+
+
+
+9. In an object oriented fashion, design the classes and hierarchy for the backpack in a game that
+can contain the following items: healing drink, combat knife, antidote shot, combat shield,
+Beretta M92 (gun), Kevlar Vest. Include in the design the relationship between the classes, the hierarchy,
+and any member variables and methods that you think each class should contain.
+
+10. If you have not worked in the game development industry, why are you interested in a game development job?
+If you have worked in game development, what do you most enjoy about it?
+
