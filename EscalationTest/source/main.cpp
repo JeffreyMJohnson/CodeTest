@@ -44,6 +44,7 @@ public:
 	float GetYDirection(){ return mDirection.y; }
 	float GetCollisionRadius(){ return mCollisionRadius; }
 	float GetFOV(){ return mFOV; }
+	vector<Entity*> overlappingMonsters;
 
 	Entity(Ushort id, Entity::Type type, float positionX, float positionY, float directionX, float directionY, float collisionRadius)
 	{
@@ -121,11 +122,6 @@ private:
 	}
 };
 
-void LoadFile()
-{
-
-}
-
 vector<Entity*> entities;
 
 float GetCollisionRadius(Entity::Type entityType)
@@ -191,7 +187,7 @@ void LoadData()
 		inFile.read(reinterpret_cast<char*>(&forwY), sizeof(float));
 		entities.push_back(new Entity(id, type, posX, posY, forwX, forwY, GetCollisionRadius(type)));
 		//cout << "loaded entity #" << i << endl;
-		entities.back()->PrintIt();
+		//entities.back()->PrintIt();
 
 		//cout << "position now at: " << inFile.tellg() << endl;
 		//advance the 12 bytes (32 byte total - 16 byte for data) to next entity
@@ -199,6 +195,7 @@ void LoadData()
 		inFile.seekg(12, ios::cur);
 	}
 	//cout << "done loading...\n";
+	cout << entities.size() << " entities loaded.\n";
 
 	inFile.close();
 }
@@ -215,10 +212,60 @@ void Cleanup()
 	entities.clear();
 }
 
+void SetOverlappingMonsters()
+{
+	vector<vector<Entity*>> result;
+	Entity* current;
+	for each (Entity* entity in entities)
+	{
+		//check if not a monster
+		if ((Ushort)entity->GetTypeID() < 3)
+		{
+			continue;
+		}
+		current = entity;
+
+
+		for each(Entity* otherEntity in entities)
+		{
+			//don't check itself and verify monster type
+			if (otherEntity != entity && (Ushort)otherEntity->GetTypeID() > 2)
+			{
+				if (entity->IsCollided(*otherEntity))
+				{
+					entity->overlappingMonsters.push_back(otherEntity);
+				}
+			}
+		}
+
+
+	}
+}
+
+void PrintOverlappingMonsters()
+{
+	for each(Entity* entity in entities)
+	{
+		if ((Ushort)entity->GetTypeID() < 3 || entity->overlappingMonsters.size() == 0)
+		{
+			continue;
+		}
+		cout << "Monster:\n";
+		entity->PrintIt();
+		cout << "\noverlaps with monster:\n";
+		for each(Entity* overlappingMonster in entity->overlappingMonsters)
+		{
+			overlappingMonster->PrintIt();
+			cout << endl;
+		}
+	}
+}
+
 void main()
 {
 	LoadData();
-
+	SetOverlappingMonsters();
+	PrintOverlappingMonsters();
 	Cleanup();
 	system("pause");
 
